@@ -11,10 +11,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Contracts\Infrastrcture\" />
     <Folder Include="AutoMapper\" />
     <Folder Include="Features\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
   <ItemGroup>
