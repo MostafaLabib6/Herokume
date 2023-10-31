@@ -6,11 +6,12 @@ public interface IGenaricRepository<T> where T : class
     public Task<T> Get(Guid id);
     public Task<bool> Save();
     public Task<bool> Exist(T entity);
+    
     /*
      in memory operations
      */
-    public Task Updadte(T entity);
-    public Task Delete(T entity);
-    public Task Add(T entity);
+    public void Update(T entity);
+    public void Delete(T entity);
+    public void Add(T entity);
 
 }
