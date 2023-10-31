@@ -11,8 +11,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AutoMapper\" />
-    <Folder Include="Features\" />
+    <Folder Include="Features\Commands\Episode\Handlers\" />
+    <Folder Include="Features\Commands\Episode\Requests\" />
+    <Folder Include="Features\Commands\Series\Handlers\" />
   </ItemGroup>
 
   <ItemGroup>
