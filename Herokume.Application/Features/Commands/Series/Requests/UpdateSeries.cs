@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Herokume.Application.Dtos.Series;
+using MediatR;
 
-namespace Herokume.Application.Features.Commands.Series.Requests
+namespace Herokume.Application.Features.Commands.Series.Requests;
+
+public class UpdateSeries:IRequest
 {
-    internal class UpdateSeries
-    {
-    }
+    public Guid Id { get; set; }
+    public UpdateSeriesDto UpdateSeriesDto { get; set; }
 }

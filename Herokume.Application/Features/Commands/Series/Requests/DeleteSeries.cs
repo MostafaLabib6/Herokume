@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MediatR;
 
 namespace Herokume.Application.Features.Commands.Series.Requests
 {
-    internal class DeleteSeries
+    public class DeleteSeries:IRequest
     {
+        public Guid Id { get; set; }
     }
 }
