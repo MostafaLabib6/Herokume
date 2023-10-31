@@ -13,13 +13,21 @@ public class MappingProfile:Profile
         //Mapping for Series
         CreateMap<Series,SeriesDetailsDto>().ReverseMap();
         CreateMap<Series,SeriesListDto>();
+        CreateMap<Series,CreateSeriesDto>().ReverseMap();
+        CreateMap<Series,UpdateSeriesDto>().ReverseMap();
+        
 
         //Mapping for Episodes
         CreateMap<Episode,EpisodeDetailsDto>().ReverseMap();
         CreateMap<Episode,EpisodeListDto>();
+        CreateMap<Episode,CreateEpisodeDto>().ReverseMap();
+        CreateMap<Episode,UpdateEpisodeDto>().ReverseMap();
 
         //Mapping for Comments
         CreateMap<Comment,CommentsListDto>();
+        CreateMap<Comment,CreateCommentDto>().ReverseMap();
+        CreateMap<Comment,BaseComment>().ReverseMap();
+        
         
         //Mapping for Categories
         CreateMap<Category,CategoryDto>();
