@@ -5,7 +5,7 @@ public interface IGenaricRepository<T> where T : class
     public Task<IReadOnlyList<T>> GetAll();
     public Task<T> Get(Guid id);
     public Task<bool> Save();
-    public Task<bool> Exist(T entity);
+    public Task<bool> Exist(Guid Id);
     
     /*
      in memory operations
