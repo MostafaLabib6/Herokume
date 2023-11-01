@@ -15,7 +15,6 @@ public class Series : BaseEntity
     public int Views { get; set; } //point to the number of views.
     public bool AddToWatchList { get; set; } = false;
     public int SeasonNumber { get; set; } = 1;
-
     public List<Series>? RelatedTo { get; set; }
     public List<Comment>? Comments { get; set; }
     public List<Episode>? Episodes { get; set; }
