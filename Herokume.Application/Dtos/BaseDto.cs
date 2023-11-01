@@ -1,6 +1,6 @@
 ﻿namespace Herokume.Application.Dtos;
 
-public class BaseDto
+public abstract class BaseDto
 {
     public Guid Id { get; set; }
 }
