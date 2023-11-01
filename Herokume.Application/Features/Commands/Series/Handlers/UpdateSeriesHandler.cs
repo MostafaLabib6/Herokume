@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Herokume.Application.Contracts.Persistance;
+using Herokume.Application.Dtos.Series.Validator;
 using Herokume.Application.Exceptions;
 using Herokume.Application.Features.Commands.Series.Requests;
 using MediatR;
@@ -8,7 +9,7 @@ namespace Herokume.Application.Features.Commands.Series.Handlers;
 
 public class UpdateSeriesHandler : IRequestHandler<UpdateSeries, Unit>
 {
-     private readonly ISeriesRepository _seriesRepository;
+    private readonly ISeriesRepository _seriesRepository;
     private readonly IMapper _mapper;
 
     public UpdateSeriesHandler(ISeriesRepository seriesRepository, IMapper mapper)
@@ -19,9 +20,14 @@ public class UpdateSeriesHandler : IRequestHandler<UpdateSeries, Unit>
 
     public async Task<Unit> Handle(UpdateSeries request, CancellationToken cancellationToken)
     {
+        var validator = new UpdateSeriesDtoValidator();
+        var validatorResult = await validator.ValidateAsync(request.UpdateSeriesDto, cancellationToken);
+        if (!validatorResult.IsValid)
+            throw new Exception();
+
         var series = _seriesRepository.Get(request.Id);
-        if (series == null) 
-            throw new SeriesNotFoundException(nameof(series),request.Id);
+        if (series == null)
+            throw new SeriesNotFoundException(nameof(series), request.Id);
         var UpdatedSeries = _mapper.Map<Domain.Entities.Series>(request.UpdateSeriesDto);
         _seriesRepository.Update(UpdatedSeries);
         await _seriesRepository.Save();
