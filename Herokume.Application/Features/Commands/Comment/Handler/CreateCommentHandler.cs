@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Herokume.Application.Contracts.Persistance;
 using Herokume.Application.Dtos.Comment;
+using Herokume.Application.Dtos.Comment.Validator;
 using Herokume.Application.Exceptions;
 using Herokume.Application.Features.Commands.Comment.Request;
 using MediatR;
@@ -20,6 +21,11 @@ public class CreateCommentHandler : IRequestHandler<CreateComment, Unit>
 
     public async Task<Unit> Handle(CreateComment request, CancellationToken cancellationToken)
     {
+        var validator = new CreateCommentDtoValidator();
+        var validatorResult = await validator.ValidateAsync(request.CreateCommentDto, cancellationToken);
+        if (!validatorResult.IsValid)
+            throw new Exception();
+
         //TODO: Adding user Repository
         var series = await _unitofWork.SeriesRepository.Get(request.SeriesId);
         var episode = await _unitofWork.EpisodeRepository.Get(request.EpisodeId);

@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using Herokume.Application.Dtos.Category;
+using Herokume.Application.Dtos.Comment;
+using MediatR;
 
 namespace Herokume.Application.Features.Commands.Comment.Request
 {
@@ -8,7 +10,7 @@ namespace Herokume.Application.Features.Commands.Comment.Request
         public Guid UserId { get; set; }
         public Guid SeriesId { get; set; }
         public Guid EpisodeId { get; set; }
-        public string Content { get; set; }
+        public UpdateCommentDto UpdateCommentDto { get; set; }
 
     }
 }
