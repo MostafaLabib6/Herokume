@@ -6,5 +6,5 @@ public class CreateEpisodeDto
 {
     public string Name { get; set; } = string.Empty;
     public string? EpisodeURL { get; set; }
-    public SeriesDetailsDto Series { get; set; }
+    public BaseSeriesDto Series { get; set; }
 }
