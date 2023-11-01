@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Herokume.Application.Contracts.Persistance;
+using Herokume.Application.Dtos.Category.Validators;
+using Herokume.Application.Dtos.Episode.Validators;
 using Herokume.Application.Features.Commands.Episode.Requests;
 using MediatR;
 
@@ -17,6 +19,11 @@ public class CreateEpisodeHandler : IRequestHandler<CreateEpisode, Unit>
     }
     public async Task<Unit> Handle(CreateEpisode request, CancellationToken cancellationToken)
     {
+         var validator = new CreateEpisodeDtoValidator();
+         var validatorResult = await validator.ValidateAsync(request.CreateEpisodeDto,cancellationToken);
+         if(!validatorResult.IsValid) 
+            throw new Exception();
+
          var Episode = _mapper.Map<Domain.Entities.Episode>(request.CreateEpisodeDto);
         _episodeRepository.Add(Episode);
         bool valid = await _episodeRepository.Save();
