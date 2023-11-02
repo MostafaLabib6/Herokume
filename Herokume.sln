@@ -11,9 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Herokume.core.domain", "Her
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Herokume.core.Application", "Herokume.core.Application", "{174FDBC4-3574-4227-A650-445862E3023B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Herokume.Domain", "Herokume.Domain\Herokume.Domain.csproj", "{01D2E74C-7789-4033-8498-5062A0B42DD9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Herokume.Domain", "Herokume.Domain\Herokume.Domain.csproj", "{01D2E74C-7789-4033-8498-5062A0B42DD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Herokume.Application", "Herokume.Application\Herokume.Application.csproj", "{4B03944B-DF01-480E-ACC4-360CF048BF62}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Herokume.Application", "Herokume.Application\Herokume.Application.csproj", "{4B03944B-DF01-480E-ACC4-360CF048BF62}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Herokume.infrastrcture", "Herokume.infrastrcture", "{9665AC78-59E7-43FA-A569-716E1FE30666}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Herokume.Persisitance", "Herokume.Persisitance\Herokume.Persisitance.csproj", "{815B9DF5-3E71-443E-9FDC-CAC2312CC4DD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +33,10 @@ Global
 		{4B03944B-DF01-480E-ACC4-360CF048BF62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B03944B-DF01-480E-ACC4-360CF048BF62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B03944B-DF01-480E-ACC4-360CF048BF62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{815B9DF5-3E71-443E-9FDC-CAC2312CC4DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{815B9DF5-3E71-443E-9FDC-CAC2312CC4DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{815B9DF5-3E71-443E-9FDC-CAC2312CC4DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{815B9DF5-3E71-443E-9FDC-CAC2312CC4DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -38,6 +46,8 @@ Global
 		{174FDBC4-3574-4227-A650-445862E3023B} = {E9323103-E41A-4689-8BFC-F271BDD0B9A4}
 		{01D2E74C-7789-4033-8498-5062A0B42DD9} = {80DB2A2C-A089-4156-B9EC-9480F11C0C6B}
 		{4B03944B-DF01-480E-ACC4-360CF048BF62} = {174FDBC4-3574-4227-A650-445862E3023B}
+		{9665AC78-59E7-43FA-A569-716E1FE30666} = {E9323103-E41A-4689-8BFC-F271BDD0B9A4}
+		{815B9DF5-3E71-443E-9FDC-CAC2312CC4DD} = {9665AC78-59E7-43FA-A569-716E1FE30666}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {88B7ADFD-32F5-4024-8FC4-57A7CE1A0E5D}
