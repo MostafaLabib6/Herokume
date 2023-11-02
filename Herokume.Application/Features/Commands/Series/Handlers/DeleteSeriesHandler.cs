@@ -23,7 +23,6 @@ public class DeleteSeriesHandler : IRequestHandler<DeleteSeries, Unit>
         if (series == null)
             throw new SeriesNotFoundException(nameof(series), request.Id);
         _seriesRepository.Delete(series);
-        await _seriesRepository.Save();
         return Unit.Value;
     }
 }

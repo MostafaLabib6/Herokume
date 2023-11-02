@@ -30,7 +30,6 @@ public class UpdateSeriesHandler : IRequestHandler<UpdateSeries, Unit>
             throw new SeriesNotFoundException(nameof(series), request.Id);
         var UpdatedSeries = _mapper.Map<Domain.Entities.Series>(request.UpdateSeriesDto);
         _seriesRepository.Update(UpdatedSeries);
-        await _seriesRepository.Save();
         return Unit.Value;
     }
 }

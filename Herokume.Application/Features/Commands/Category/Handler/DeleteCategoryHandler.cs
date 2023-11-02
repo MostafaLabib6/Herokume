@@ -23,7 +23,6 @@ public class DeleteCategoryHandler : IRequestHandler<DeleteCategory, Unit>
         if (category == null)
             throw new EpsiodeNotFoundException(nameof(category), request.Id);
         _categoryRepository.Delete(category);
-        await _categoryRepository.Save();
         return Unit.Value;
     }
 }

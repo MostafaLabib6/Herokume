@@ -28,7 +28,6 @@ public class CreateCategoryHandler : IRequestHandler<CreateCategory, Unit>
             throw new Exception();
         var category = _mapper.Map<Domain.Entities.Category>(request.CreateCategoryDto);
         _categoryRepository.Add(category);
-        bool valid = await _categoryRepository.Save();
         //if (valid) 
         return Unit.Value;
     }

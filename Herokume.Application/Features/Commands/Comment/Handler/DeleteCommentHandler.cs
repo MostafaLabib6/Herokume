@@ -22,7 +22,6 @@ public class DeleteCommentHandler : IRequestHandler<DeleteComment, Unit>
         if (comment == null)
             throw new Exception($"{nameof(comment)} {request.CommentId}");
         _unitofWork.CommentRepository.Delete(comment);
-        await _unitofWork.CommentRepository.Save();
         return Unit.Value;
     }
 }

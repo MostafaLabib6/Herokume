@@ -33,7 +33,6 @@ public class UpdateCommentHandler : IRequestHandler<EditComment, Unit>
             throw new BadException("Series or Episode Error");
         var comment = await _unitofWork.CommentRepository.Get(request.CommentId);
         comment.Content = request.UpdateCommentDto.Content;
-        await _unitofWork.CommentRepository.Save();
         return Unit.Value;
     }
 

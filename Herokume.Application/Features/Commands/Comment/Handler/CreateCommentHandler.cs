@@ -34,7 +34,6 @@ public class CreateCommentHandler : IRequestHandler<CreateComment, Unit>
                throw new BadException("Series or Episode Error");
         var comment = _mapper.Map<Domain.Entities.Comment>(request.CreateCommentDto);
         _unitofWork.CommentRepository.Add(comment);
-        await _unitofWork.CommentRepository.Save();
         return Unit.Value;
     }
 }

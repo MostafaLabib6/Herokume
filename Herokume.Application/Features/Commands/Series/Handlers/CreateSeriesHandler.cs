@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using Herokume.Application.Contracts.Persistance;
 using Herokume.Application.Dtos.Episode.Validators;
 using Herokume.Application.Dtos.Series;
@@ -21,14 +22,13 @@ public class CreateSeriesHandler : IRequestHandler<CreateSeries, Unit>
 
     public async Task<Unit> Handle(CreateSeries request, CancellationToken cancellationToken)
     {
-        var validator = new BaseSeriesDtoValidator();
+        var validator = new BaseSeriesDtoValidator(_seriesRepository);
         var validatorResult = await validator.ValidateAsync(request.CreateSeriesDto, cancellationToken);
         if (!validatorResult.IsValid)
             throw new Exception();
 
         var series = _mapper.Map<Domain.Entities.Series>(request.CreateSeriesDto);
         _seriesRepository.Add(series);
-        bool valid = await _seriesRepository.Save();
         //if (valid) 
         return Unit.Value;
     }
