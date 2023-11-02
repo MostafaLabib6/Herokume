@@ -1,14 +1,14 @@
-﻿namespace Herokume.Domain.Entities;
+﻿using Herokume.Domain.Common;
 
-public class Comment
+namespace Herokume.Domain.Entities;
+
+public class Comment:BaseEntity
 {
     public string Content { get; set; } =string.Empty;
     public Series Series { get; set; }
     public float Rating { get; set; }
     //TODO: adding user .
-
-    public DateTime CreatedAt { get; set; } = DateTime.Now;
     public Comment? ResponseTo { get; set; }
-    public List<Comment>? Responses { get; set; } //replaies to comment.
+    public ICollection<Comment>? Responses { get; set; } //replaies to comment.
     public int Likes { get; set; }
 }

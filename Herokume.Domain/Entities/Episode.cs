@@ -1,8 +1,9 @@
-﻿using System.Reflection.Metadata.Ecma335;
+﻿using Herokume.Domain.Common;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Herokume.Domain.Entities;
 
-public class Episode
+public class Episode:BaseEntity
 {
     public string Name { get; set; } = string.Empty;
     public int Length { get; set; }
@@ -11,6 +12,6 @@ public class Episode
     public int EpisodeNumber { get; set; }
     public float Rating { get; set; }
     public Series Series { get; set; }
-    List<Comment>? Comments { get; set; }
+    public ICollection<Comment>? Comments { get; set; }
 
 }

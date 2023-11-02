@@ -6,7 +6,6 @@ public class Series : BaseEntity
     public string Name { get; set; } = string.Empty;
     public string NormalizeName { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    public DateTime? CreatedAt { get; set; }
     public bool ShowInSlides { get; set; }
     public string? Trailer { get; set; }
     public float Rating { get; set; }
@@ -15,9 +14,9 @@ public class Series : BaseEntity
     public int Views { get; set; } //point to the number of views.
     public bool AddToWatchList { get; set; } = false;
     public int SeasonNumber { get; set; } = 1;
-    public List<Series>? RelatedTo { get; set; }
-    public List<Comment>? Comments { get; set; }
-    public List<Episode>? Episodes { get; set; }
-    public List<Tag>? Tags { get; set; }
-    public List<Category>? categories { get; set; }
+    public ICollection<Series>? RelatedTo { get; set; }
+    public ICollection<Comment>? Comments { get; set; }
+    public ICollection<Episode>? Episodes { get; set; }
+    public ICollection<Tag>? Tags { get; set; }
+    public ICollection<Category>? categories { get; set; }
 }
