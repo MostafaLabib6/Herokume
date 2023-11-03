@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿using Herokume.Application.Contracts.Infrastrcture.EmailService;
+using Herokume.Application.Models.Mail;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 namespace Herokume.Application
 {
