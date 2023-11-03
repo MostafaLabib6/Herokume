@@ -17,7 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Herokume.Application", "Her
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Herokume.infrastrcture", "Herokume.infrastrcture", "{9665AC78-59E7-43FA-A569-716E1FE30666}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Herokume.Persisitance", "Herokume.Persisitance\Herokume.Persisitance.csproj", "{815B9DF5-3E71-443E-9FDC-CAC2312CC4DD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Herokume.Persisitance", "Herokume.Persisitance\Herokume.Persisitance.csproj", "{815B9DF5-3E71-443E-9FDC-CAC2312CC4DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Herokume.Infrastrcture", "Herokume.Infrastrcture\Herokume.Infrastrcture.csproj", "{57DD6E22-7215-4BC4-9EEA-A833DFBB547D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +39,10 @@ Global
 		{815B9DF5-3E71-443E-9FDC-CAC2312CC4DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{815B9DF5-3E71-443E-9FDC-CAC2312CC4DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{815B9DF5-3E71-443E-9FDC-CAC2312CC4DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{57DD6E22-7215-4BC4-9EEA-A833DFBB547D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57DD6E22-7215-4BC4-9EEA-A833DFBB547D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57DD6E22-7215-4BC4-9EEA-A833DFBB547D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57DD6E22-7215-4BC4-9EEA-A833DFBB547D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -48,6 +54,7 @@ Global
 		{4B03944B-DF01-480E-ACC4-360CF048BF62} = {174FDBC4-3574-4227-A650-445862E3023B}
 		{9665AC78-59E7-43FA-A569-716E1FE30666} = {E9323103-E41A-4689-8BFC-F271BDD0B9A4}
 		{815B9DF5-3E71-443E-9FDC-CAC2312CC4DD} = {9665AC78-59E7-43FA-A569-716E1FE30666}
+		{57DD6E22-7215-4BC4-9EEA-A833DFBB547D} = {9665AC78-59E7-43FA-A569-716E1FE30666}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {88B7ADFD-32F5-4024-8FC4-57A7CE1A0E5D}
