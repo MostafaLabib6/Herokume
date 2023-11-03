@@ -5,5 +5,5 @@ namespace Herokume.Application.Features.Commands.Series.Requests;
 
 public class CreateSeries : IRequest
 {
-   public BaseSeriesDto CreateSeriesDto { get; set; }
+   public CreateSeriesDto CreateSeriesDto { get; set; }
 }
