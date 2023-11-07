@@ -6,21 +6,28 @@ using MediatR;
 namespace Herokume.Application.Features.Commands.Episode.Handlers;
 
 public class DeleteEpisodeHandler : IRequestHandler<DeleteEpisode, Unit>
-{  private readonly IEpisodeRepository _episodeRepository;
+{
+    private readonly IUnitofWork _unitofWork;
     private readonly IMapper _mapper;
 
-    public DeleteEpisodeHandler(IEpisodeRepository episodeRepository, IMapper mapper)
+    public DeleteEpisodeHandler(IUnitofWork unitofWork, IMapper mapper)
     {
-        _episodeRepository = episodeRepository;
+        _unitofWork = unitofWork;
         _mapper = mapper;
     }
 
     public async Task<Unit> Handle(DeleteEpisode request, CancellationToken cancellationToken)
     {
-        var episode = await _episodeRepository.Get(request.Id);
-        if (episode == null)
-            throw new EpsiodeNotFoundException(nameof(episode), request.Id);
-        await _episodeRepository.Delete(episode);
+        var series = await _unitofWork.SeriesRepository.Get(request.SeriesId);
+        if (series == null)
+            throw new SeriesNotFoundException(nameof(series), request.SeriesId);
+
+        var epsiode = await _unitofWork.EpisodeRepository.Get(request.Id);
+        if (epsiode == null)
+            throw new EpsiodeNotFoundException(nameof(epsiode), request.Id);
+
+
+        await _unitofWork.EpisodeRepository.Delete(epsiode);
         return Unit.Value;
     }
 }
