@@ -19,9 +19,17 @@ namespace Herokume.Persisitance.Repositories
         }
         public async Task<Episode> GetEpisodeDetails(Guid id)
         {
-            return await _dbContext.Episodes.Include(x => x.Series)
+            var episodes = _dbContext.Episodes as IQueryable<Episode>;
+            return await episodes.Include(x => x.Series)
                 .Include(x => x.Comments)
                 .FirstOrDefaultAsync(x => x.ID == id);
+        }
+
+        public async Task<List<Episode>> GetSeriesEpisodes(Guid seriesId)
+        {
+            var episodes = _dbContext.Episodes as IQueryable<Episode>;
+            return await episodes.Where(x => x.SeriesId == seriesId).ToListAsync();
+
         }
     }
 }

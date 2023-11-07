@@ -14,6 +14,11 @@ public class SeriesRepository : GenaricRepository<Series>, ISeriesRepository
         _dbContext = dbContext;
     }
 
+    public Task<List<Series>> GetRandomSeries(int count = 10)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<Series> GetSeriesDetails(Guid id)
     {
         return await _dbContext.Series
