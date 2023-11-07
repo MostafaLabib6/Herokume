@@ -20,7 +20,7 @@ public class CreateSeriesDtoValidator : AbstractValidator<CreateSeriesDto>
         // .NotEmpty().WithMessage("{PropertyName} is Required")
         // .NotNull();
 
-        RuleFor(series => series.Image)
+        RuleFor(series => series.ImageFile)
         .NotEmpty().WithMessage("{PropertyName} is Required")
         .NotNull();
 

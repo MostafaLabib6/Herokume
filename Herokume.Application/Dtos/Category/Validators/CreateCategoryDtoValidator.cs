@@ -2,11 +2,11 @@
 
 namespace Herokume.Application.Dtos.Category.Validators;
 
-public class CreateCategoryDtoValidator : AbstractValidator<CreateCategoryDto>
+public class CreateCategoryDtoValidator : AbstractValidator<string>
 {
     public CreateCategoryDtoValidator()
     {
-        RuleFor(category => category.Name)
+        RuleFor(x => x)
             .NotEmpty().WithMessage("{PropertyName} is Required")
             .MaximumLength(50).WithMessage("{PropertyName} must not exceed {ComparisonVa1ue} characters.")
             .NotNull();
