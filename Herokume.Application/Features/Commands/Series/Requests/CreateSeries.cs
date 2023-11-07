@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Herokume.Application.Features.Commands.Series.Requests;
 
-public class CreateSeries : IRequest
+public class CreateSeries : IRequest<Guid>
 {
    public CreateSeriesDto CreateSeriesDto { get; set; }
 }

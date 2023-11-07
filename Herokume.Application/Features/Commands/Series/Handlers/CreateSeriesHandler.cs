@@ -10,7 +10,7 @@ using MediatR;
 
 namespace Herokume.Application.Features.Commands.Series.Handlers;
 
-public class CreateSeriesHandler : IRequestHandler<CreateSeries, Unit>
+public class CreateSeriesHandler : IRequestHandler<CreateSeries, Guid>
 {
     private readonly ISeriesRepository _seriesRepository;
     private readonly IMapper _mapper;
@@ -32,7 +32,7 @@ public class CreateSeriesHandler : IRequestHandler<CreateSeries, Unit>
 
 
 
-    public async Task<Unit> Handle(CreateSeries request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateSeries request, CancellationToken cancellationToken)
     {
         var validator = new CreateSeriesDtoValidator();
         var validatorResult = await validator.ValidateAsync(request.CreateSeriesDto, cancellationToken);
@@ -48,7 +48,7 @@ public class CreateSeriesHandler : IRequestHandler<CreateSeries, Unit>
         series.Image = result?.Uri.ToString();
 
 
-        await _seriesRepository.Add(series);
+        var entity = await _seriesRepository.Add(series);
 
 
         //TODO: Get email of User
@@ -73,6 +73,6 @@ public class CreateSeriesHandler : IRequestHandler<CreateSeries, Unit>
 
 
 
-        return Unit.Value;
+        return entity.ID;
     }
 }
