@@ -18,7 +18,7 @@ builder.Services.AddPersistanceService(builder.Configuration);
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddCors(options => options.AddPolicy(
-        name: "CrosPolicy",
+        name: "CorsPolicy",
         bldr => bldr.AllowAnyOrigin()
         .AllowAnyHeader()
         .AllowAnyMethod()
