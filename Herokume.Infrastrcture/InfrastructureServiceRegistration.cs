@@ -13,7 +13,7 @@ public static class InfrastructureServiceRegistration
 {
     public static IServiceCollection AddInfrastructureService(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<EmailSetting>(configuration.GetSection("EmailSettingsConfig"));
+        services.Configure<EmailSetting>(configuration.GetSection("EmailSettings"));
         services.AddTransient<IEmailService, EmailService>();
 
         services.Configure<PhotoSettings>(configuration.GetSection("CloudinarySettings"));
