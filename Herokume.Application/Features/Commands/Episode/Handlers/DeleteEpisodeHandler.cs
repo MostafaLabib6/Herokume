@@ -20,7 +20,7 @@ public class DeleteEpisodeHandler : IRequestHandler<DeleteEpisode, Unit>
         var episode = await _episodeRepository.Get(request.Id);
         if (episode == null)
             throw new EpsiodeNotFoundException(nameof(episode), request.Id);
-        _episodeRepository.Delete(episode);
+        await _episodeRepository.Delete(episode);
         return Unit.Value;
     }
 }

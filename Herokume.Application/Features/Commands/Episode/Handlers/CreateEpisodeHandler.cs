@@ -26,8 +26,8 @@ public class CreateEpisodeHandler : IRequestHandler<CreateEpisode, Unit>
             throw new Exception();
 
         var Episode = _mapper.Map<Domain.Entities.Episode>(request.CreateEpisodeDto);
-        _unitofWork.EpisodeRepository.Add(Episode);
-        //if (valid) 
+        await _unitofWork.EpisodeRepository.Add(Episode);
+
         return Unit.Value;
     }
 }

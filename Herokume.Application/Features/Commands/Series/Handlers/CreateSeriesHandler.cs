@@ -3,8 +3,6 @@ using FluentValidation;
 using Herokume.Application.Contracts.Infrastrcture.EmailService;
 using Herokume.Application.Contracts.Infrastrcture.PhotoService;
 using Herokume.Application.Contracts.Persistance;
-using Herokume.Application.Dtos.Episode.Validators;
-using Herokume.Application.Dtos.Series;
 using Herokume.Application.Dtos.Series.Validator;
 using Herokume.Application.Features.Commands.Series.Requests;
 using Herokume.Application.Models.Mail;

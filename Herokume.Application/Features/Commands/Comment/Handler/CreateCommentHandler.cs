@@ -33,7 +33,7 @@ public class CreateCommentHandler : IRequestHandler<CreateComment, Unit>
         if (episode is null && series is null) 
                throw new BadException("Series or Episode Error");
         var comment = _mapper.Map<Domain.Entities.Comment>(request.CreateCommentDto);
-        _unitofWork.CommentRepository.Add(comment);
+        await _unitofWork.CommentRepository.Add(comment);
         return Unit.Value;
     }
 }

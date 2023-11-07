@@ -28,7 +28,7 @@ public class UpdateEpisodeHandler : IRequestHandler<UpdateEpisode, Unit>
         if (epsiode == null)
             throw new SeriesNotFoundException(nameof(epsiode), request.Id);
         var UpdatedEpisode = _mapper.Map<Domain.Entities.Episode>(request.UpdateEpisodeDto);
-        _episodeRepository.Update(UpdatedEpisode);
+        await _episodeRepository.Update(UpdatedEpisode);
         return Unit.Value;
     }
 }
