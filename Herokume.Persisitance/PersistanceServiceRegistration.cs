@@ -9,16 +9,17 @@ namespace Herokume.Persisitance
 {
     public static class PersistanceServiceRegistration
     {
-        public static IServiceCollection AddPersistanceService(this IServiceCollection services,IConfiguration configuration)
+        public static IServiceCollection AddPersistanceService(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddDbContext<HerokumeDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("HerokumeConnectionString")));
 
-            services.AddScoped(typeof(IGenaricRepository<>),typeof(GenaricRepository<>));
+            services.AddScoped(typeof(IGenaricRepository<>), typeof(GenaricRepository<>));
             services.AddScoped<ICategoryRepository, CategoryRepository>();
             services.AddScoped<ICommentRepository, CommentRepository>();
             services.AddScoped<IEpisodeRepository, EpisodeRepository>();
             services.AddScoped<ISeriesRepository, SeriesRepository>();
+            services.AddScoped<IUnitofWork, UnitofWork>();
 
 
             return services;

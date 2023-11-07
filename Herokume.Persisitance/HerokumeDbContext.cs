@@ -12,7 +12,6 @@ public class HerokumeDbContext : DbContext
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        base.OnModelCreating(modelBuilder);
     }
     public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
     {
@@ -32,4 +31,6 @@ public class HerokumeDbContext : DbContext
     public DbSet<Comment> Comments { get; set; }
     public DbSet<Category> Categories { get; set; }
     public DbSet<Tag> Tags { get; set; }
+    public DbSet<CommentResponse> CommentResponses { get; set; }
+    public DbSet<RelatedSeries> RelatedSeries { get; set; }
 }
