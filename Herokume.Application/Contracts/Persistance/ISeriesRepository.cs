@@ -6,4 +6,5 @@ namespace Herokume.Application.Contracts.Persistance;
 public interface ISeriesRepository:IGenaricRepository<Series>
 {
     Task<Series> GetSeriesDetails(Guid id);//this includes comments ,Episodes and Categories
+    Task<List<Series>> GetRandomSeries(int count = 10);
 }
