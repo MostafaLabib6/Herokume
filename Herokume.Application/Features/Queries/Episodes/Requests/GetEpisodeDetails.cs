@@ -6,5 +6,6 @@ namespace Herokume.Application.Features.Queries.Episodes.Requests;
 
 public class GetEpisodeDetails : IRequest<EpisodeDetailsDto>
 {
+    public Guid SeriesId { get; set; }
     public Guid Id { get; set; }
 }

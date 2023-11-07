@@ -9,21 +9,26 @@ namespace Herokume.Application.Features.Queries.Episodes.Handlers;
 
 public class GetEpisodeDetailsHandler : IRequestHandler<GetEpisodeDetails, EpisodeDetailsDto>
 {
-    
-    private readonly IEpisodeRepository _episodeRepository;
+
+    private readonly IUnitofWork _unitofWork;
     private readonly IMapper _mapper;
 
-    public GetEpisodeDetailsHandler(IEpisodeRepository episodeRepository, IMapper mapper)
+    public GetEpisodeDetailsHandler(IUnitofWork unitofWork, IMapper mapper)
     {
-        _episodeRepository = episodeRepository;
+        _unitofWork = unitofWork;
         _mapper = mapper;
     }
 
     public async Task<EpisodeDetailsDto> Handle(GetEpisodeDetails request, CancellationToken cancellationToken)
     {
-        var episode = await _episodeRepository.Get(request.Id);
+        var series = await _unitofWork.SeriesRepository.Get(request.Id);
+        if (series == null)
+            throw new SeriesNotFoundException(nameof(series), request.SeriesId);
+
+        var episode = await _unitofWork.EpisodeRepository.Get(request.Id);
         if (episode == null)
-            throw new EpsiodeNotFoundException(nameof(episode),request.Id);
+            throw new EpsiodeNotFoundException(nameof(episode), request.Id);
+
         return _mapper.Map<EpisodeDetailsDto>(episode);
     }
 }
