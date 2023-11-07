@@ -6,7 +6,8 @@ using System.Security.Principal;
 
 namespace Herokume.Application.Features.Commands.Category.Request;
 
-public class CreateCategory : IRequest
+public class CreateCategory : IRequest<Unit>
 {
-    public CreateCategoryDto CreateCategoryDto { get; set; }
+    public string Name { get; set; } = string.Empty;
+
 }
