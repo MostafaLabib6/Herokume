@@ -6,7 +6,7 @@ using MediatR;
 
 namespace Herokume.Application.Features.Commands.Category.Handler;
 
-public class CreateCategoryHandler : IRequestHandler<CreateCategory, Unit>
+public class CreateCategoryHandler : IRequestHandler<CreateCategory, Guid>
 {
 
     private readonly ICategoryRepository _categoryRepository;
@@ -16,7 +16,7 @@ public class CreateCategoryHandler : IRequestHandler<CreateCategory, Unit>
         _categoryRepository = categoryRepository;
     }
 
-    public async Task<Unit> Handle(CreateCategory request, CancellationToken cancellationToken)
+    public async Task<Guid> Handle(CreateCategory request, CancellationToken cancellationToken)
     {
         var validator = new CreateCategoryDtoValidator();
         var validatorResualt = await validator.ValidateAsync(request.Name, cancellationToken);
@@ -28,8 +28,8 @@ public class CreateCategoryHandler : IRequestHandler<CreateCategory, Unit>
         {
             Name = request.Name,
         };
-        await _categoryRepository.Add(category);
+        var cat = await _categoryRepository.Add(category);
 
-        return Unit.Value;
+        return cat.ID;
     }
 }
