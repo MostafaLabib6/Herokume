@@ -9,18 +9,22 @@ namespace Herokume.Application.Features.Commands.Comment.Handler;
 public class DeleteCommentHandler : IRequestHandler<DeleteComment, Unit>
 {
     private readonly IUnitofWork _unitofWork;
-    private readonly IMapper _mapper;
 
-    public DeleteCommentHandler(IUnitofWork unitofWork, IMapper mapper)
+
+    public DeleteCommentHandler(IUnitofWork unitofWork)
     {
         _unitofWork = unitofWork;
-        _mapper = mapper;
     }
     public async Task<Unit> Handle(DeleteComment request, CancellationToken cancellationToken)
     {
+        if (request.UserId == Guid.Empty)
+            throw new Exception("User Not Found");
+
         var comment = await _unitofWork.CommentRepository.Get(request.CommentId);
         if (comment == null)
             throw new Exception($"{nameof(comment)} {request.CommentId}");
+
+
         await _unitofWork.CommentRepository.Delete(comment);
         return Unit.Value;
     }

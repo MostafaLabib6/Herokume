@@ -24,6 +24,8 @@ public class UpdateCommentHandler : IRequestHandler<EditComment, Unit>
         if (!validatorResult.IsValid)
             throw new Exception();
 
+        if (request.UserId == Guid.Empty)
+            throw new Exception("User Not Found");
 
         //TODO: Adding user Repository
         var series = await _unitofWork.SeriesRepository.Get(request.SeriesId);
@@ -31,6 +33,7 @@ public class UpdateCommentHandler : IRequestHandler<EditComment, Unit>
 
         if (episode is null && series is null)
             throw new BadException("Series or Episode Error");
+
         var comment = await _unitofWork.CommentRepository.Get(request.CommentId);
         comment.Content = request.UpdateCommentDto.Content;
         return Unit.Value;
