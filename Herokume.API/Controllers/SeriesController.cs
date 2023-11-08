@@ -61,7 +61,7 @@ namespace Herokume.API.Controllers
         [HttpOptions()]
         public IActionResult GetSeriesOptions()
         {
-            Response.Headers.Add("Allow", "GET,HEAD,POST,OPTIONS");
+            Response.Headers.Add("Allow", "GET,HEAD,POST,PUT,OPTIONS");
             return Ok();
         }
     }

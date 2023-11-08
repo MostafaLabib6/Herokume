@@ -61,7 +61,7 @@ public class EpisodesController : ControllerBase
     [HttpOptions()]
     public IActionResult GetEpisodeOptions()
     {
-        Response.Headers.Add("Allow", "GET,HEAD,POST,OPTIONS");
+        Response.Headers.Add("Allow", "GET,HEAD,POST,PUT,OPTIONS");
         return Ok();
     }
 
