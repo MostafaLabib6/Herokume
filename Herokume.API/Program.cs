@@ -1,5 +1,8 @@
 using Herokume.Application;
+using Herokume.Application.Contracts.Infrastrcture.IdentityService;
+using Herokume.Domain.Entities;
 using Herokume.Infrastrcture;
+using Herokume.Infrastrcture.Authentication;
 using Herokume.Persisitance;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,9 +14,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
+
 builder.Services.AddApplicationServices();
-builder.Services.AddInfrastructureService(builder.Configuration);
 builder.Services.AddPersistanceService(builder.Configuration);
+builder.Services.AddInfrastructureService(builder.Configuration);
 
 builder.Services.AddHttpContextAccessor();
 
@@ -26,6 +31,7 @@ builder.Services.AddCors(options => options.AddPolicy(
 
 var app = builder.Build();
 
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -34,6 +40,11 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseCors("CorsPolicy");
 
 app.UseAuthorization();
 
