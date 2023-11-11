@@ -34,7 +34,7 @@ namespace Herokume.Persisitance.Migrations
 
                     b.HasIndex("categoriesID");
 
-                    b.ToTable("CategorySeries");
+                    b.ToTable("CategorySeries", (string)null);
                 });
 
             modelBuilder.Entity("Herokume.Domain.Entities.Category", b =>
@@ -59,7 +59,7 @@ namespace Herokume.Persisitance.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("Herokume.Domain.Entities.Comment", b =>
@@ -101,7 +101,7 @@ namespace Herokume.Persisitance.Migrations
 
                     b.HasIndex("SeriesID");
 
-                    b.ToTable("Comments");
+                    b.ToTable("Comments", (string)null);
                 });
 
             modelBuilder.Entity("Herokume.Domain.Entities.CommentResponse", b =>
@@ -121,7 +121,7 @@ namespace Herokume.Persisitance.Migrations
 
                     b.HasIndex("CommentId");
 
-                    b.ToTable("CommentResponses");
+                    b.ToTable("CommentResponses", (string)null);
                 });
 
             modelBuilder.Entity("Herokume.Domain.Entities.Episode", b =>
@@ -162,7 +162,7 @@ namespace Herokume.Persisitance.Migrations
 
                     b.HasIndex("SeriesId");
 
-                    b.ToTable("Episodes");
+                    b.ToTable("Episodes", (string)null);
                 });
 
             modelBuilder.Entity("Herokume.Domain.Entities.RelatedSeries", b =>
@@ -188,7 +188,7 @@ namespace Herokume.Persisitance.Migrations
 
                     b.HasIndex("SeriesID");
 
-                    b.ToTable("RelatedSeries");
+                    b.ToTable("RelatedSeries", (string)null);
                 });
 
             modelBuilder.Entity("Herokume.Domain.Entities.Series", b =>
@@ -241,7 +241,7 @@ namespace Herokume.Persisitance.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Series");
+                    b.ToTable("Series", (string)null);
                 });
 
             modelBuilder.Entity("Herokume.Domain.Entities.Tag", b =>
@@ -262,7 +262,7 @@ namespace Herokume.Persisitance.Migrations
 
                     b.HasKey("ID");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Tags", (string)null);
                 });
 
             modelBuilder.Entity("SeriesTag", b =>
@@ -277,7 +277,7 @@ namespace Herokume.Persisitance.Migrations
 
                     b.HasIndex("TagsID");
 
-                    b.ToTable("SeriesTag");
+                    b.ToTable("SeriesTag", (string)null);
                 });
 
             modelBuilder.Entity("CategorySeries", b =>
