@@ -32,12 +32,15 @@ namespace Herokume.API.Controllers
         public async Task<ActionResult<SeriesDetailsDto>> GetSeriesById(Guid id)
         {
             var series = await _mediator.Send(new GetSeriesDetails() { Id = id });
+            if (series == null)
+                return BadRequest();
             return Ok(series);
         }
         [HttpPost]
         public async Task<ActionResult<CreateSeriesDto>> CreateSeries([FromBody] CreateSeriesDto createSeriesDto)
         {
             var seriesId = await _mediator.Send(new CreateSeries() { CreateSeriesDto = createSeriesDto });
+
             return CreatedAtRoute("GetSeriesWithDetails", // Endpoint name to return to it.
                 new { seriesId }, // id to end point
                 createSeriesDto); // dto
