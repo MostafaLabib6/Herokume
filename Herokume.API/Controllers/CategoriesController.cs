@@ -35,7 +35,7 @@ public class CategoriesController : ControllerBase
     }
 
     [HttpPost("{name}")]
-    public async Task<ActionResult<CreateCategory>> CreateCategory(string name)
+    public async Task<ActionResult<string>> CreateCategory(string name)
     {
         var id = await _mediator.Send(new CreateCategory() { Name = name });
         return CreatedAtRoute("GetCategory", new { id }, name);
