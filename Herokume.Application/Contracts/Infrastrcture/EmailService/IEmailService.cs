@@ -4,5 +4,5 @@ namespace Herokume.Application.Contracts.Infrastrcture.EmailService;
 
 public interface IEmailService
 {
-    public Task<bool> SendEmail(Email email);
+    public Task SendEmail(Email email);
 }

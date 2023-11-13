@@ -25,6 +25,8 @@ public static class InfrastructureServiceRegistration
         services.AddDbContext<HerokumeIdentityDbContext>(options =>
               options.UseSqlServer(configuration.GetConnectionString("HerokumeConnectionIdentityString")));
 
+        services.AddTransient<IEmailService, EmailService>();
+
         services.AddIdentity<ApplicationUser, IdentityRole>().
             AddEntityFrameworkStores<HerokumeIdentityDbContext>().
             AddDefaultTokenProviders();

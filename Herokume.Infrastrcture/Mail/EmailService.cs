@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
 using System.Net;
-
+using System.Net.Mail;
 
 namespace Herokume.Infrastrcture.Mail;
 
@@ -16,16 +16,17 @@ public class EmailService : IEmailService
     {
         _emailSettings = emailSettings.Value;
     }
-    public async Task<bool> SendEmail(Email email)
+    public async Task SendEmail(Email email)
     {
-        var client = new SendGridClient(_emailSettings.ApiKey);
+        var smtpClient = new SmtpClient("smtp.gmail.com")
+        {
+            Port = 587,
+            Credentials = new NetworkCredential(_emailSettings.FromAddress, _emailSettings.ApiKey),
+            EnableSsl = true,
+            UseDefaultCredentials = true
+        };
 
-        var to = new EmailAddress(email.To);
-        var from = new EmailAddress(_emailSettings.FromAddress, _emailSettings.FromName);
-        var message = MailHelper.CreateSingleEmail(from, to, email.Subject, email.Body, email.Body);
+        await smtpClient.SendMailAsync(new MailMessage(from: _emailSettings.FromAddress, to: "abw945424@gmail.com", subject: email.Subject, email.Body));
 
-        var response = await client.SendEmailAsync(message);
-
-        return response.StatusCode == HttpStatusCode.OK || response.StatusCode == HttpStatusCode.Accepted;
     }
 }

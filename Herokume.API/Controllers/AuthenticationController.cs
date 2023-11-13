@@ -1,4 +1,5 @@
-﻿using Herokume.Application.Contracts.Infrastrcture.IdentityService;
+﻿using Herokume.Application.Contracts.Infrastrcture.EmailService;
+using Herokume.Application.Contracts.Infrastrcture.IdentityService;
 using Herokume.Application.Models.Identity;
 using Herokume.Infrastrcture.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -11,12 +12,13 @@ namespace Herokume.API.Controllers
     public class AuthenticationController : ControllerBase
     {
         private readonly IAuthenticationService _authenticationService;
-
+        private readonly IEmailService _emailService;
         public AuthenticationController
         (
-            IAuthenticationService authenticationService)
+            IAuthenticationService authenticationService, IEmailService emailService)
         {
             _authenticationService = authenticationService;
+            _emailService = emailService;
         }
 
         [HttpPost("Register")]
@@ -34,6 +36,20 @@ namespace Herokume.API.Controllers
 
             if (!result.Success)
                 return Unauthorized(result);
+            try
+            {
+
+                await _emailService.SendEmail(new Application.Models.Mail.Email()
+                {
+                    Subject = "Email Created successfully",
+                    Body = "This Long contant to be the body of the email. and please don't replay to it.",
+                    To = user.Email
+                });
+            }
+            catch (Exception ex)
+            {
+                //to be logged
+            }
 
             return Ok(result);
         }

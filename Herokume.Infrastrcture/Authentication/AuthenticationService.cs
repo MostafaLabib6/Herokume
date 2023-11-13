@@ -85,7 +85,7 @@ public class AuthenticationService : IAuthenticationService
                 new AuthResult()
                 {
                     Success = false,
-                    Error = new List<string> { "Password Requiered alphanumeric,RequiredDigit and Upperletters " }
+                    Error = new List<string>(){ isCreated.Errors.ToArray()?.ToString()}
                 };
 
         //Generate Token
