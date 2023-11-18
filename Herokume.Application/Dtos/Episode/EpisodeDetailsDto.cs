@@ -12,7 +12,7 @@ public class EpisodeDetailsDto:BaseDto
     public int Likes { get; set; }
     public int EpisodeNumber { get; set; }
     public float Rating { get; set; }
-    public BaseSeriesDto Series { get; set; }
+    public string? SeriesName { get; set; }
     List<CommentsListDto>? Comments { get; set; }
 
 }
