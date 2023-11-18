@@ -1,10 +1,9 @@
 ﻿using Herokume.Application.Dtos.Series;
 using Herokume.Application.Features.Commands.Series.Requests;
 using Herokume.Application.Features.Queries.Series;
+using Herokume.Application.Models.Identity;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Herokume.API.Controllers
 {
@@ -24,7 +23,23 @@ namespace Herokume.API.Controllers
         public async Task<ActionResult<List<SeriesListDto>>> GetSeries()
         {
             var series = await _mediator.Send(new GetSeriesList());
+            if (series == null)
+                return BadRequest();
             return Ok(series);
+        }
+
+        [HttpGet("countofRandomSeries/{count}")]
+        public async Task<ActionResult<List<SeriesListDto>>> GetRandomSeries(int count)
+        {
+            var series = await _mediator.Send(new GetRandomSeries() { Count = count });
+            return Ok(series);
+        }
+
+        [HttpGet("{id}/episodesCounts")]
+        public async Task<ActionResult<int>> GetNumberofEpisodesinSeries(Guid id)
+        {
+            var episodesCount = await _mediator.Send(new GetNumberofEpisodesinSeries() { Id = id });
+            return Ok(episodesCount);
         }
 
         [HttpGet("{id}", Name = "GetSeriesWithDetails")]
@@ -36,6 +51,16 @@ namespace Herokume.API.Controllers
                 return BadRequest();
             return Ok(series);
         }
+
+        //[HttpGet("search/{name}")]
+        //public async Task<ActionResult<SeriesDetailsDto>> GetSeriesByName(string name)
+        //{
+        //    //var series = await _mediator.Send(new GetSeriesDetails() { name });
+        //    //if (series == null)
+        //    //    return BadRequest();
+        //    //return Ok(series);
+        //}
+
         [HttpPost]
         public async Task<ActionResult<CreateSeriesDto>> CreateSeries([FromBody] CreateSeriesDto createSeriesDto)
         {

@@ -21,4 +21,8 @@
     <ProjectReference Include="..\Herokume.Persisitance\Herokume.Persisitance.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="logs\" />
+  </ItemGroup>
+
 </Project>
