@@ -2,7 +2,6 @@
 using Herokume.Application.Features.Commands.Category.Request;
 using Herokume.Application.Features.Queries.Categories.Responses;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Herokume.API.Controllers;
