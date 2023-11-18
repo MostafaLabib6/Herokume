@@ -31,6 +31,8 @@ public class CreateEpisodeHandler : IRequestHandler<CreateEpisode, Guid>
             throw new Exception();
 
         var Episode = _mapper.Map<Domain.Entities.Episode>(request.CreateEpisodeDto);
+        Episode.Series = series;
+
         var entity = await _unitofWork.EpisodeRepository.Add(Episode);
 
         return entity.ID;
