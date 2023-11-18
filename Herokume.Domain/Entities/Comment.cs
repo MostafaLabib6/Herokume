@@ -6,22 +6,18 @@ namespace Herokume.Domain.Entities;
 public class Comment : BaseEntity
 {
     public string Content { get; set; } = string.Empty;
-    public Series? Series { get; set; }
-    public Episode? Episode { get; set; }
-    public float Rating { get; set; }
-    //TODO: adding user .
+    public Series? Series { get; set; } = new Series();
+    public Episode? Episode { get; set; } = new Episode();
+    public float Rating { get; set; } = float.MinValue;
+    //TODO: adding user .    
     public Comment? ResponseTo { get; set; } = new();
     public ICollection<CommentResponse> Responses { get; set; } = new List<CommentResponse>(); //replaies to comment.
-    public int Likes { get; set; }
+    public int Likes { get; set; } = int.MinValue;
 }
 
-public class CommentResponse
+public class CommentResponse : BaseEntity
 {
-    public Guid Id { get; set; }
     public string Text { get; set; } = string.Empty;
-    public Guid CommentId { get; set; }
-    public Comment Comment
-    {
-        get; set;
-    }
+    public Guid CommentId { get; set; } = Guid.NewGuid();
+    public Comment Comment { get; set; } = new Comment();
 }

@@ -7,14 +7,14 @@ namespace Herokume.Domain.Entities;
 public class Episode : BaseEntity
 {
     public string Name { get; set; } = string.Empty;
-    public int Length { get; set; }
-    public string? EpisodeURL { get; set; }
-    public int Likes { get; set; }
-    public int EpisodeNumber { get; set; }
-    public float Rating { get; set; }
+    public int Length { get; set; } = 25;
+    public string? EpisodeURL { get; set; } = string.Empty;
+    public int Likes { get; set; } = int.MinValue;
+    public int EpisodeNumber { get; set; } = 0;
+    public float Rating { get; set; } = 5;
     [ForeignKey(nameof(SeriesId))]
     public Series Series { get; set; } = new();
-    public Guid SeriesId { get; set; }
+    public Guid SeriesId { get; set; } = Guid.NewGuid();
     public ICollection<Comment>? Comments { get; set; } = new List<Comment>();
 
 }

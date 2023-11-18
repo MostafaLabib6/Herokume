@@ -6,12 +6,12 @@ public class Series : BaseEntity
     public string Name { get; set; } = string.Empty;
     public string NormalizeName { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
-    public bool ShowInSlides { get; set; }
-    public string? Trailer { get; set; }
-    public float Rating { get; set; }
-    public string? Image { get; set; }
-    public int Likes { get; set; }
-    public int Views { get; set; } //point to the number of views.
+    public bool ShowInSlides { get; set; } = false;
+    public string? Trailer { get; set; } = string.Empty;
+    public float Rating { get; set; } = float.MinValue;
+    public string? Image { get; set; } = string.Empty;
+    public int Likes { get; set; } = int.MinValue;
+    public int Views { get; set; } = int.MinValue; //point to the number of views.
     public bool AddToWatchList { get; set; } = false;
     public int SeasonNumber { get; set; } = 1;
     public ICollection<RelatedSeries>? RelatedTo { get; set; } = new List<RelatedSeries>();
@@ -20,10 +20,9 @@ public class Series : BaseEntity
     public ICollection<Tag>? Tags { get; set; } = new List<Tag>();
     public ICollection<Category>? categories { get; set; } = new List<Category>();
 }
-public class RelatedSeries
+public class RelatedSeries : BaseEntity
 {
-    public Guid Id { get; set; }
     public string Name { get; set; } = string.Empty;
-    public string? Image { get; set; }
-    public float Rating { get; set; }
+    public string? Image { get; set; } = string.Empty;
+    public float Rating { get; set; } = float.MinValue;
 }
