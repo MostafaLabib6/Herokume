@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System.Text;
 
 namespace Herokume.Infrastrcture;
@@ -21,11 +22,14 @@ public static class InfrastructureServiceRegistration
 {
     public static IServiceCollection AddInfrastructureService(this IServiceCollection services, IConfiguration configuration)
     {
-
         services.AddDbContext<HerokumeIdentityDbContext>(options =>
               options.UseSqlServer(configuration.GetConnectionString("HerokumeConnectionIdentityString")));
 
+        services.Configure<EmailSetting>(configuration.GetSection("EmailSettings"));
         services.AddTransient<IEmailService, EmailService>();
+
+        services.Configure<PhotoSettings>(configuration.GetSection("CloudinarySettings"));
+        services.AddTransient<IPhotoService, PhotoService>();
 
         services.AddIdentity<ApplicationUser, IdentityRole>().
             AddEntityFrameworkStores<HerokumeIdentityDbContext>().
@@ -56,12 +60,6 @@ public static class InfrastructureServiceRegistration
                 ValidAudience = configuration.GetSection("JwtConfig:Audience").Value,
             };
         });
-
-        services.Configure<EmailSetting>(configuration.GetSection("EmailSettings"));
-        services.AddTransient<IEmailService, EmailService>();
-
-        services.Configure<PhotoSettings>(configuration.GetSection("CloudinarySettings"));
-        services.AddTransient<IPhotoService, PhotoService>();
 
         return services;
     }
