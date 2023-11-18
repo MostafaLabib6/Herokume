@@ -4,14 +4,15 @@ using Herokume.Application.Contracts.Infrastrcture.PhotoService;
 using Herokume.Application.Models.Photo;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
+using Serilog;
 
 namespace Herokume.Infrastrcture.Photo;
 
 public class PhotoService : IPhotoService
 {
     private readonly Cloudinary _cloudinary;
-
-    public PhotoService(IOptions<PhotoSettings> options)
+    //private readonly ILogger _logger;
+    public PhotoService(IOptions<PhotoSettings> options)//, ILogger logger)
     {
         var account = new Account(
             cloud: options.Value.CloudName,
@@ -19,6 +20,7 @@ public class PhotoService : IPhotoService
             apiSecret: options.Value.ApiSecret
             );
         _cloudinary = new Cloudinary(account);
+        //_logger = logger;
     }
     public async Task<ImageUploadResult> AddImage(IFormFile file)
     {
@@ -31,7 +33,14 @@ public class PhotoService : IPhotoService
                 File = new FileDescription(file.FileName, stream),
                 Transformation = new Transformation().Height(600).Width(450)
             };
-            uploadResult = await _cloudinary.UploadAsync(ImageParam);
+            try
+            {
+                uploadResult = await _cloudinary.UploadAsync(ImageParam);
+            }
+            catch (Exception ex)
+            {
+                //_logger.Error(ex, "Failed To Upload image");
+            }
         }
         return uploadResult;
     }
