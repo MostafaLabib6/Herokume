@@ -1,12 +1,9 @@
-﻿using Azure.Core;
-using Herokume.Application.Contracts.Infrastrcture.IdentityService;
-using Herokume.Application.Contracts.Persistance;
+﻿using Herokume.Application.Contracts.Infrastrcture.IdentityService;
 using Herokume.Application.Models.Identity;
-using Herokume.Application.Models.Mail;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -20,7 +17,9 @@ public class AuthenticationService : IAuthenticationService
     private readonly IConfiguration _configuration;
     //private readonly JwtConfig _jwtConfig;
 
-    public AuthenticationService(UserManager<ApplicationUser> userManger, IConfiguration configuration, SignInManager<ApplicationUser> signInManager)
+    public AuthenticationService(UserManager<ApplicationUser> userManger,
+        IConfiguration configuration,
+        SignInManager<ApplicationUser> signInManager)
     {
         _userManger = userManger;
         _configuration = configuration;
@@ -85,7 +84,7 @@ public class AuthenticationService : IAuthenticationService
                 new AuthResult()
                 {
                     Success = false,
-                    Error = new List<string>(){ isCreated.Errors.ToArray()?.ToString()}
+                    Error = new List<string>() { isCreated.Errors.ToArray()?.ToString() }
                 };
 
         //Generate Token
