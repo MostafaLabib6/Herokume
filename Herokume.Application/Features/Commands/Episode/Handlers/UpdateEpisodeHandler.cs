@@ -28,12 +28,16 @@ public class UpdateEpisodeHandler : IRequestHandler<UpdateEpisode, Unit>
         if (!validatorResult.IsValid)
             throw new Exception();
 
-        var epsiode = _unitofWork.EpisodeRepository.Get(request.Id);
+        var epsiode =await  _unitofWork.EpisodeRepository.Get(request.Id);
         if (epsiode == null)
             throw new EpsiodeNotFoundException(nameof(epsiode), request.Id);
 
-        var UpdatedEpisode = _mapper.Map<Domain.Entities.Episode>(request.UpdateEpisodeDto);
-        await _unitofWork.EpisodeRepository.Update(UpdatedEpisode);
+        //var UpdatedEpisode = _mapper.Map<Domain.Entities.Episode>(request.UpdateEpisodeDto);
+
+        epsiode.Name = request.UpdateEpisodeDto.Name;
+        epsiode.EpisodeURL = request.UpdateEpisodeDto.EpisodeUrl;
+
+        await _unitofWork.EpisodeRepository.Update(epsiode);
 
         return Unit.Value;
     }
