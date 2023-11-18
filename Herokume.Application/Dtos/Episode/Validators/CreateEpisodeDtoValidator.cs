@@ -20,8 +20,8 @@ public class CreateEpisodeDtoValidator : AbstractValidator<CreateEpisodeDto>
          .NotEmpty().WithMessage("{PropertyName} is Required")
          .NotNull();
 
-        RuleFor(episode => episode.Series)
-            .SetValidator(new BaseSeriesDtoValidator(_unitofWork.SeriesRepository));
+        //RuleFor(episode => episode.Series)
+        //    .SetValidator(new BaseSeriesDtoValidator(_unitofWork.SeriesRepository));
 
     }
 }
