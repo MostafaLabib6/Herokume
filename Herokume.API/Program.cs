@@ -4,6 +4,7 @@ using Herokume.Domain.Entities;
 using Herokume.Infrastrcture;
 using Herokume.Infrastrcture.Authentication;
 using Herokume.Persisitance;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,11 +15,20 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+Log.Logger = new LoggerConfiguration()
+    .MinimumLevel.Debug()
+    .WriteTo.File("logs/herokumeinfo.txt", rollingInterval: RollingInterval.Day)
+    .CreateLogger();
+
+
+builder.Host.UseSerilog();
+
 builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
 
 builder.Services.AddApplicationServices();
-builder.Services.AddPersistanceService(builder.Configuration);
 builder.Services.AddInfrastructureService(builder.Configuration);
+builder.Services.AddPersistanceService(builder.Configuration);
 
 builder.Services.AddHttpContextAccessor();
 
