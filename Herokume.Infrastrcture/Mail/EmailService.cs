@@ -1,8 +1,8 @@
 ﻿using Herokume.Application.Contracts.Infrastrcture.EmailService;
 using Herokume.Application.Models.Mail;
 using Microsoft.Extensions.Options;
-using SendGrid;
-using SendGrid.Helpers.Mail;
+using Serilog;
+using Serilog.Core;
 using System.Net;
 using System.Net.Mail;
 
@@ -11,10 +11,15 @@ namespace Herokume.Infrastrcture.Mail;
 public class EmailService : IEmailService
 {
     private readonly EmailSetting _emailSettings;
+    //private readonly ILogger _logger;
 
-    public EmailService(IOptions<EmailSetting> emailSettings)
+    public EmailService(
+        IOptions<EmailSetting> emailSettings
+        //ILogger logger
+        )
     {
         _emailSettings = emailSettings.Value;
+        //_logger = logger;
     }
     public async Task SendEmail(Email email)
     {
@@ -25,8 +30,13 @@ public class EmailService : IEmailService
             EnableSsl = true,
             UseDefaultCredentials = true
         };
-
-        await smtpClient.SendMailAsync(new MailMessage(from: _emailSettings.FromAddress, to: "abw945424@gmail.com", subject: email.Subject, email.Body));
-
+        try
+        {
+            await smtpClient.SendMailAsync(new MailMessage(from: _emailSettings.FromAddress, to: email.To, subject: email.Subject, email.Body));
+        }
+        catch (Exception ex)
+        {
+            //_logger.Error(ex, "Failed to send email.");
+        }
     }
 }
