@@ -36,20 +36,13 @@ namespace Herokume.API.Controllers
 
             if (!result.Success)
                 return Unauthorized(result);
-            try
-            {
 
-                await _emailService.SendEmail(new Application.Models.Mail.Email()
-                {
-                    Subject = "Email Created successfully",
-                    Body = "This Long contant to be the body of the email. and please don't replay to it.",
-                    To = user.Email
-                });
-            }
-            catch (Exception ex)
+            await _emailService.SendEmail(new Application.Models.Mail.Email()
             {
-                //to be logged
-            }
+                Subject = "Email Created successfully",
+                Body = "This Long contant to be the body of the email. and please don't replay to it.",
+                To = user.Email
+            });
 
             return Ok(result);
         }
