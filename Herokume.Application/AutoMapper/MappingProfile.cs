@@ -19,8 +19,8 @@ public class MappingProfile : Profile
 
         //Mapping for Episodes
         CreateMap<Episode, EpisodeDetailsDto>().ReverseMap();
-        CreateMap<Episode, EpisodeListDto>();
-        CreateMap<Episode, CreateEpisodeDto>().ReverseMap();
+        CreateMap<Episode, EpisodeListDto>().ReverseMap();
+        CreateMap<CreateEpisodeDto, Episode>().ReverseMap();
         CreateMap<Episode, UpdateEpisodeDto>().ReverseMap();
 
         //Mapping for Comments
