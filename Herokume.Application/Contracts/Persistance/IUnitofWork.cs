@@ -2,12 +2,12 @@
 
 namespace Herokume.Application.Contracts.Persistance;
 
-public interface IUnitofWork
+public interface IUnitofWork : IDisposable
 {
-    public ISeriesRepository SeriesRepository { get; set; }
-    public ICommentRepository CommentRepository{ get; set; }
-    public ICategoryRepository CategoryRepository { get; set; }
-    public IEpisodeRepository EpisodeRepository { get; set; }
-    public ITagRepository TagRepository { get; set; }
+    public ISeriesRepository SeriesRepository { get; }
+    public ICommentRepository CommentRepository { get; }
+    public ICategoryRepository CategoryRepository { get; }
+    public IEpisodeRepository EpisodeRepository { get; }
+    public ITagRepository TagRepository { get; }
     //TODO: adding user repsoitory
 }
