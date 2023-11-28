@@ -1,4 +1,6 @@
-﻿using Herokume.Application.Contracts.Persistance;
+﻿using Azure;
+using Azure.Core;
+using Herokume.Application.Contracts.Persistance;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.InteropServices;
 
@@ -14,7 +16,7 @@ public class GenaricRepository<T> : IGenaricRepository<T> where T : class
     }
     public async Task<T> Add(T entity)
     {
-        await _dbContext.AddAsync(entity);
+        await _dbContext.Set<T>().AddAsync(entity);
         await _dbContext.SaveChangesAsync();
         return entity;
     }
@@ -46,5 +48,17 @@ public class GenaricRepository<T> : IGenaricRepository<T> where T : class
         _dbContext.Entry(entity).State = EntityState.Modified;
         _dbContext.Set<T>().Update(entity);
         await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task SaveChanges()
+    {
+        try
+        {
+            await _dbContext.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            throw new Exception("An error occurred while saving changes.", ex);
+        }
     }
 }
