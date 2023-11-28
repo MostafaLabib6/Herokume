@@ -22,6 +22,240 @@ namespace Herokume.Infrastrcture.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CategorySeries", b =>
+                {
+                    b.Property<Guid>("SeriesID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("categoriesID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("SeriesID", "categoriesID");
+
+                    b.HasIndex("categoriesID");
+
+                    b.ToTable("CategorySeries");
+                });
+
+            modelBuilder.Entity("Herokume.Domain.Entities.Category", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Category");
+                });
+
+            modelBuilder.Entity("Herokume.Domain.Entities.Comment", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("EpisodeID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("ResponseToID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("SeriesID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("EpisodeID");
+
+                    b.HasIndex("ResponseToID");
+
+                    b.HasIndex("SeriesID");
+
+                    b.ToTable("Comment");
+                });
+
+            modelBuilder.Entity("Herokume.Domain.Entities.Episode", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("EpisodeNumber")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EpisodeURL")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Length")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Rating")
+                        .HasColumnType("real");
+
+                    b.Property<Guid>("SeriesId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("SeriesId");
+
+                    b.ToTable("Episode");
+                });
+
+            modelBuilder.Entity("Herokume.Domain.Entities.RelatedSeries", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Rating")
+                        .HasColumnType("real");
+
+                    b.Property<Guid?>("SeriesID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("SeriesID");
+
+                    b.ToTable("RelatedSeries");
+                });
+
+            modelBuilder.Entity("Herokume.Domain.Entities.Series", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool>("AddToWatchList")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Image")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Likes")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NormalizeName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Rating")
+                        .HasColumnType("real");
+
+                    b.Property<int>("SeasonNumber")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("ShowInSlides")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Trailer")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Views")
+                        .HasColumnType("int");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("Series");
+                });
+
+            modelBuilder.Entity("Herokume.Domain.Entities.Tag", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TagName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Tag");
+                });
+
             modelBuilder.Entity("Herokume.Infrastrcture.Authentication.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -29,6 +263,9 @@ namespace Herokume.Infrastrcture.Migrations
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
+
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
@@ -40,6 +277,12 @@ namespace Herokume.Infrastrcture.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("FavoriteMovie")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Hobby")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
@@ -63,6 +306,9 @@ namespace Herokume.Infrastrcture.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
+
+                    b.Property<string>("RoleName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -220,6 +466,82 @@ namespace Herokume.Infrastrcture.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("SeriesTag", b =>
+                {
+                    b.Property<Guid>("SeriesID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("TagsID")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("SeriesID", "TagsID");
+
+                    b.HasIndex("TagsID");
+
+                    b.ToTable("SeriesTag");
+                });
+
+            modelBuilder.Entity("CategorySeries", b =>
+                {
+                    b.HasOne("Herokume.Domain.Entities.Series", null)
+                        .WithMany()
+                        .HasForeignKey("SeriesID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Herokume.Domain.Entities.Category", null)
+                        .WithMany()
+                        .HasForeignKey("categoriesID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Herokume.Domain.Entities.Comment", b =>
+                {
+                    b.HasOne("Herokume.Domain.Entities.Episode", "Episode")
+                        .WithMany("Comments")
+                        .HasForeignKey("EpisodeID");
+
+                    b.HasOne("Herokume.Domain.Entities.Comment", "ResponseTo")
+                        .WithMany("Responses")
+                        .HasForeignKey("ResponseToID");
+
+                    b.HasOne("Herokume.Domain.Entities.Series", "Series")
+                        .WithMany("Comments")
+                        .HasForeignKey("SeriesID");
+
+                    b.Navigation("Episode");
+
+                    b.Navigation("ResponseTo");
+
+                    b.Navigation("Series");
+                });
+
+            modelBuilder.Entity("Herokume.Domain.Entities.Episode", b =>
+                {
+                    b.HasOne("Herokume.Domain.Entities.Series", "Series")
+                        .WithMany("Episodes")
+                        .HasForeignKey("SeriesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Series");
+                });
+
+            modelBuilder.Entity("Herokume.Domain.Entities.RelatedSeries", b =>
+                {
+                    b.HasOne("Herokume.Domain.Entities.Series", null)
+                        .WithMany("RelatedTo")
+                        .HasForeignKey("SeriesID");
+                });
+
+            modelBuilder.Entity("Herokume.Domain.Entities.Series", b =>
+                {
+                    b.HasOne("Herokume.Infrastrcture.Authentication.ApplicationUser", null)
+                        .WithMany("LikedMovies")
+                        .HasForeignKey("ApplicationUserId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -269,6 +591,45 @@ namespace Herokume.Infrastrcture.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("SeriesTag", b =>
+                {
+                    b.HasOne("Herokume.Domain.Entities.Series", null)
+                        .WithMany()
+                        .HasForeignKey("SeriesID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Herokume.Domain.Entities.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Herokume.Domain.Entities.Comment", b =>
+                {
+                    b.Navigation("Responses");
+                });
+
+            modelBuilder.Entity("Herokume.Domain.Entities.Episode", b =>
+                {
+                    b.Navigation("Comments");
+                });
+
+            modelBuilder.Entity("Herokume.Domain.Entities.Series", b =>
+                {
+                    b.Navigation("Comments");
+
+                    b.Navigation("Episodes");
+
+                    b.Navigation("RelatedTo");
+                });
+
+            modelBuilder.Entity("Herokume.Infrastrcture.Authentication.ApplicationUser", b =>
+                {
+                    b.Navigation("LikedMovies");
                 });
 #pragma warning restore 612, 618
         }
