@@ -1,7 +1,6 @@
 ﻿using Herokume.Application.Contracts.Infrastrcture.EmailService;
 using Herokume.Application.Contracts.Infrastrcture.IdentityService;
 using Herokume.Application.Contracts.Infrastrcture.PhotoService;
-using Herokume.Application.Models.Identity;
 using Herokume.Application.Models.Mail;
 using Herokume.Application.Models.Photo;
 using Herokume.Infrastrcture.Authentication;
@@ -13,7 +12,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
-using Serilog;
 using System.Text;
 
 namespace Herokume.Infrastrcture;
@@ -22,6 +20,8 @@ public static class InfrastructureServiceRegistration
 {
     public static IServiceCollection AddInfrastructureService(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddTransient<IUserService, UserService>();
+
         services.AddDbContext<HerokumeIdentityDbContext>(options =>
               options.UseSqlServer(configuration.GetConnectionString("HerokumeConnectionIdentityString")));
 
@@ -44,7 +44,7 @@ public static class InfrastructureServiceRegistration
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         }).AddJwtBearer(options =>
         {
-            var key = Encoding.ASCII.GetBytes(configuration.GetSection("JwtConfig:SecurityKey").Value);
+            var key = Encoding.ASCII.GetBytes(configuration.GetSection("JwtConfig:SecurityKey").Value ?? throw new ArgumentNullException());
 
             // user just authenticate once and the the token will added to header automaticaly.
             options.SaveToken = true;
@@ -52,8 +52,12 @@ public static class InfrastructureServiceRegistration
             options.TokenValidationParameters = new TokenValidationParameters()
             {
                 ValidateIssuerSigningKey = true,
+
+                // didn't provide the key to authenticate that the was the error .
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(
+                    configuration.GetSection("JwtConfig:SecurityKey").Value ?? throw new ArgumentNullException())),
                 ValidateIssuer = true,
-                ValidateAudience = false,
+                ValidateAudience = true,
                 RequireExpirationTime = false,
                 ValidateLifetime = true,
                 ValidIssuer = configuration.GetSection("JwtConfig:Issuer").Value,
