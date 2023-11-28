@@ -25,7 +25,7 @@ public class MappingProfile : Profile
 
         //Mapping for Comments
         CreateMap<Comment, CommentsListDto>();
-        CreateMap<Comment, CreateCommentDto>().ReverseMap();
+        CreateMap<Comment, CreateCommentForSeriesDto>().ReverseMap();
         CreateMap<Comment, BaseComment>().ReverseMap();
 
 
