@@ -34,7 +34,7 @@ public static class SeriesControllerMocks
             Image = "https://res.cloudinary.com/dgywrpedk/image/upload/v1700066123/images_amp6oa.jpg",
             ShowInSlides = true,
             AddToWatchList = true,
-            SeasonNumber = 1,
+            SeasonNumber = 3,
             CreatedAt = DateTime.Now,
             Trailer = "https://youtu.be/pkKu9hLT-t8?si=LF-m35iyYQaBN36y",
             Description = "Yuji Itadori is a boy with tremendous physical strength, though he lives a completely ordinary high school life. One day, to save a classmate who has been attacked by curses, he eats the finger of Ryomen Sukuna, taking the curse into his own soul. From then on, he shares one body with Ryomen Sukuna. Guided by the most powerful of sorcerers, Satoru Gojo, Itadori is admitted to Tokyo Jujutsu High School, an organization that fights the curses... and thus begins the heroic tale of a boy who became a curse to exorcise a curse, a life from which he could never turn back.",
@@ -45,12 +45,32 @@ public static class SeriesControllerMocks
             Rating = 4.7f,
             ID = new Guid("C831A519-1B9C-4CDE-BB38-8C0D76858111")
 
+            },
+                        new Series()
+            {
+            Name = "JUJUTSU KAISEN movie",
+            Image = "https://res.cloudinary.com/dgywrpedk/image/upload/v1700066123/images_amp6oa.jpg",
+            ShowInSlides = true,
+            AddToWatchList = true,
+            SeasonNumber = 2,
+            CreatedAt = DateTime.Now,
+            Trailer = "https://youtu.be/pkKu9hLT-t8?si=LF-m35iyYQaBN36y",
+            Description = "Yuji Itadori is a boy with tremendous physical strength, though he lives a completely ordinary high school life. One day, to save a classmate who has been attacked by curses, he eats the finger of Ryomen Sukuna, taking the curse into his own soul. From then on, he shares one body with Ryomen Sukuna. Guided by the most powerful of sorcerers, Satoru Gojo, Itadori is admitted to Tokyo Jujutsu High School, an organization that fights the curses... and thus begins the heroic tale of a boy who became a curse to exorcise a curse, a life from which he could never turn back.",
+            Episodes =  null,
+            Comments = null,
+            categories = null,
+            Likes = 2580404,
+            Rating = 4.7f,
+            ID = new Guid("C831A519-1B9C-4CDE-BB38-8C0D76832511")
+
             }
+
         };
 
         var mock = new Mock<ISeriesRepository>();
         mock.Setup(x => x.GetAll()).ReturnsAsync(seriesList);// First Tast
         mock.Setup(x => x.GetSeriesDetails(new Guid("C831A519-1B9C-4CDE-BB38-8C0D76858726"))).ReturnsAsync(seriesList[0]);
+        mock.Setup(x => x.GetRandomSeries(3)).ReturnsAsync(seriesList);
 
         return mock;
     }

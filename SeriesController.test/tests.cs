@@ -63,7 +63,7 @@ public class tests
 
         //Assert
         result.ShouldNotBeNull();
-        result.Count.ShouldBe(2);
+        result.Count.ShouldBe(3);
 
     }
 
@@ -74,10 +74,24 @@ public class tests
             _seriesRepositoryMock.Object,
             _mapper
             );
-        var result = await handler.Handle(new GetSeriesDetails(){Id = new Guid("C831A519-1B9C-4CDE-BB38-8C0D76858726")},CancellationToken.None);
+        var result = await handler.Handle(new GetSeriesDetails() { Id = new Guid("C831A519-1B9C-4CDE-BB38-8C0D76858726") }, CancellationToken.None);
 
         result.ShouldNotBeNull();
         result.Id.ShouldBe(new Guid("C831A519-1B9C-4CDE-BB38-8C0D76858726"));
+    }
+
+    //[Theory]
+    //[InlineData(2)]
+    [Fact] // have problem here The Test Fail When using theory :>
+    public async Task GetRandomSeries_ValidateTheCountofSeries_ValidRandomCount()
+    {
+        var handler = new GetRandomSeriesHandler(_seriesRepositoryMock.Object, _mapper);
+
+        //count = int.Parse(count);
+        var result = await handler.Handle(new GetRandomSeries() { Count = 2 }, CancellationToken.None);
+
+        result.ShouldNotBeNull();
+        result.Count.ShouldBe(2);
     }
 
 }
