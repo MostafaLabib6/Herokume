@@ -1,6 +1,7 @@
 ﻿using Herokume.Application.Dtos.Episode;
 using Herokume.Application.Dtos.Series;
 using Herokume.Application.Exceptions;
+using Herokume.Application.Features.Commands.Comment.Request;
 using Herokume.Application.Features.Commands.Episode.Requests;
 using Herokume.Application.Features.Commands.Series.Requests;
 using Herokume.Application.Features.Queries.Episodes.Requests;
@@ -57,7 +58,6 @@ public class EpisodesController : ControllerBase
         await _mediator.Send(new DeleteEpisode() { SeriesId = seriesId, Id = episodeId });
         return NoContent();
     }
-
     [HttpOptions()]
     public IActionResult GetEpisodeOptions()
     {
