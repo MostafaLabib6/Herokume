@@ -1,9 +1,8 @@
 ﻿using Herokume.Application.Contracts.Infrastrcture.EmailService;
 using Herokume.Application.Contracts.Infrastrcture.IdentityService;
 using Herokume.Application.Models.Identity;
-using Herokume.Infrastrcture.Authentication;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace Herokume.API.Controllers
 {
@@ -13,12 +12,14 @@ namespace Herokume.API.Controllers
     {
         private readonly IAuthenticationService _authenticationService;
         private readonly IEmailService _emailService;
+        private readonly IUserService _userService;
         public AuthenticationController
         (
-            IAuthenticationService authenticationService, IEmailService emailService)
+            IAuthenticationService authenticationService, IEmailService emailService, IUserService userService)
         {
             _authenticationService = authenticationService;
             _emailService = emailService;
+            _userService = userService;
         }
 
         [HttpPost("Register")]
@@ -40,7 +41,7 @@ namespace Herokume.API.Controllers
             await _emailService.SendEmail(new Application.Models.Mail.Email()
             {
                 Subject = "Email Created successfully",
-                Body = "This Long contant to be the body of the email. and please don't replay to it.",
+                Body = $"\"Dear Anime Fan,\\n\\n\" +\r\n Email Created Successfully",
                 To = user.Email
             });
 
@@ -71,5 +72,54 @@ namespace Herokume.API.Controllers
             await _authenticationService.Logout();
             return Ok();
         }
+
+        [HttpPost("/changeEmail/{userId}/")]
+        public async Task<Result> ChangeEmail([FromRoute] string userId, [FromBody] string email)
+        {
+            return await _userService.ChangeEmailAsync(userId, email);
+        }
+
+        [HttpPost("/changePassword/{userId}")]
+        public async Task<Result> ChangePassword(
+            [FromRoute] string userId,
+            string oldPassword,
+            string newPassword)
+        {
+            return await _userService.ChangePasswordAsync(userId, oldPassword, newPassword);
+        }
+
+        [HttpPost("/generateConfimrationToken/{email}")]
+        public async Task<string> GenerateConfirmationToken(string email)
+        {
+            return await _userService.GenerateEmailConfirmationTokenAsync(email);
+        }
+
+        [HttpPost("/ConfirmEmail/{userId}")]
+        public async Task<Result> ConfirmEmail(string userId, string token)
+        {
+            return await _userService.ConfirmEmailAsync(userId, token);
+        }
+
+        [HttpPost("/resetPasswordToken/{userId}")]
+        public async Task<string> GenerateResetPasswordCode(string userId)
+        {
+            return await _userService.GeneratePasswordResetTokenAsync(userId);
+        }
+
+        [HttpPost("/resetPassword/")]
+        public async Task<Result> ResetPassword(ResetPassword resetPassword)
+        {
+            return await _userService.ResetPasswordAsync(resetPassword.Email, resetPassword.Code, resetPassword.NewPassword);
+        }
+    }
+
+    public class ResetPassword
+    {
+        [Required]
+        public string Email { get; set; }
+        [Required]
+        public string NewPassword { get; set; }
+        [Required]
+        public string Code { get; set; }
     }
 }
