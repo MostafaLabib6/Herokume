@@ -33,13 +33,15 @@ public class AuthenticationService : IAuthenticationService
     }
     public string GenerateToken(ApplicationUser user)
     {
-        var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration.GetSection("JwtConfig:SecurityKey").Value));
+        var key = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration.GetSection("JwtConfig:SecurityKey").Value ?? throw new ArgumentNullException()));
         var signinCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512);
 
         var claimsForToken = new List<Claim>();
         claimsForToken.Add(new Claim("id", user.Id.ToString()));
         claimsForToken.Add(new Claim("sub", user.Email));
         claimsForToken.Add(new Claim("given_name", user.UserName));
+
+        // TODO: Set The user Role;
 
         var jwtToken = new JwtSecurityToken(
             issuer: _configuration.GetSection("JwtConfig:Issuer").Value,
@@ -124,7 +126,7 @@ public class AuthenticationService : IAuthenticationService
 
     public async Task Logout()
     {
-
+        // it should kill jwt token...
         await _signInManager.SignOutAsync();
     }
 
