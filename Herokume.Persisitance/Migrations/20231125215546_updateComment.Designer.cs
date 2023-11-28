@@ -4,6 +4,7 @@ using Herokume.Persisitance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Herokume.Persisitance.Migrations
 {
     [DbContext(typeof(HerokumeDbContext))]
-    partial class HerokumeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231125215546_updateComment")]
+    partial class updateComment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -77,9 +80,6 @@ namespace Herokume.Persisitance.Migrations
 
                     b.Property<Guid?>("EpisodeID")
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsSeries")
-                        .HasColumnType("bit");
 
                     b.Property<int>("Likes")
                         .HasColumnType("int");

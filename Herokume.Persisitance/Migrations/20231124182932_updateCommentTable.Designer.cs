@@ -4,6 +4,7 @@ using Herokume.Persisitance;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Herokume.Persisitance.Migrations
 {
     [DbContext(typeof(HerokumeDbContext))]
-    partial class HerokumeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231124182932_updateCommentTable")]
+    partial class updateCommentTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,14 +81,14 @@ namespace Herokume.Persisitance.Migrations
                     b.Property<Guid?>("EpisodeID")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool>("IsSeries")
-                        .HasColumnType("bit");
-
                     b.Property<int>("Likes")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedAt")
                         .HasColumnType("datetime2");
+
+                    b.Property<float>("Rating")
+                        .HasColumnType("real");
 
                     b.Property<Guid?>("ResponseToID")
                         .HasColumnType("uniqueidentifier");
@@ -105,6 +108,32 @@ namespace Herokume.Persisitance.Migrations
                     b.HasIndex("SeriesID");
 
                     b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("Herokume.Domain.Entities.CommentResponse", b =>
+                {
+                    b.Property<Guid>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CommentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ModifiedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Text")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("CommentId");
+
+                    b.ToTable("CommentResponses");
                 });
 
             modelBuilder.Entity("Herokume.Domain.Entities.Episode", b =>
@@ -291,7 +320,7 @@ namespace Herokume.Persisitance.Migrations
                         .HasForeignKey("EpisodeID");
 
                     b.HasOne("Herokume.Domain.Entities.Comment", "ResponseTo")
-                        .WithMany("Responses")
+                        .WithMany()
                         .HasForeignKey("ResponseToID");
 
                     b.HasOne("Herokume.Domain.Entities.Series", "Series")
@@ -303,6 +332,17 @@ namespace Herokume.Persisitance.Migrations
                     b.Navigation("ResponseTo");
 
                     b.Navigation("Series");
+                });
+
+            modelBuilder.Entity("Herokume.Domain.Entities.CommentResponse", b =>
+                {
+                    b.HasOne("Herokume.Domain.Entities.Comment", "Comment")
+                        .WithMany("Responses")
+                        .HasForeignKey("CommentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Comment");
                 });
 
             modelBuilder.Entity("Herokume.Domain.Entities.Episode", b =>
