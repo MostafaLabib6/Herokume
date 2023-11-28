@@ -1,28 +1,35 @@
 using Herokume.Application;
 using Herokume.Application.Contracts.Infrastrcture.IdentityService;
-using Herokume.Domain.Entities;
 using Herokume.Infrastrcture;
 using Herokume.Infrastrcture.Authentication;
 using Herokume.Persisitance;
 using Serilog;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.ReturnHttpNotAcceptable = true;
+}).AddNewtonsoftJson()
+.AddXmlDataContractSerializerFormatters();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 
 Log.Logger = new LoggerConfiguration()
-    .MinimumLevel.Debug()
+    .MinimumLevel.Warning()
     .WriteTo.File("logs/herokumeinfo.txt", rollingInterval: RollingInterval.Day)
     .CreateLogger();
 
 
 builder.Host.UseSerilog();
+
+builder.Services.AddSingleton(Log.Logger);
 
 builder.Services.AddTransient<IAuthenticationService, AuthenticationService>();
 
