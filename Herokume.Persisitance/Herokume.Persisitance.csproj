@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Herokume.Application\Herokume.Application.csproj" />
+    <ProjectReference Include="..\Herokume.Infrastrcture\Herokume.Infrastrcture.csproj" />
   </ItemGroup>
 
 </Project>

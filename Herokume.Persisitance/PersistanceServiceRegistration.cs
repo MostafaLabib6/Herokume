@@ -1,5 +1,4 @@
-﻿
-using Herokume.Application.Contracts.Persistance;
+﻿using Herokume.Application.Contracts.Persistance;
 using Herokume.Persisitance.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
