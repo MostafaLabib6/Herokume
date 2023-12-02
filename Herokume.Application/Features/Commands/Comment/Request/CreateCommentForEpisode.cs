@@ -3,8 +3,8 @@ using MediatR;
 
 namespace Herokume.Application.Features.Commands.Comment.Request;
 
-public class CreateComment : IRequest<Guid>
+public class CreateCommentForEpisode : IRequest<Guid>
 {
 
-    public CreateCommentDto? CreateCommentDto { get; set; }
+    public CreateCommentForEpisodeDto? CreateCommentDto { get; set; }
 }
